@@ -22,6 +22,9 @@
 #include "stm32f1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include "tusb.h" // Don't forget to include tusb.h!!!
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -199,5 +202,21 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /* USER CODE BEGIN 1 */
+
+// FROM family.c
+
+
+void USB_HP_IRQHandler(void) {
+  tud_int_handler(0);
+}
+
+void USB_LP_IRQHandler(void) {
+  tud_int_handler(0);
+}
+
+void USBWakeUp_IRQHandler(void) {
+  tud_int_handler(0);
+}
+
 
 /* USER CODE END 1 */
