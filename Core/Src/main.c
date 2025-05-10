@@ -103,13 +103,21 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  tud_task();
-		if (tud_cdc_connected() && tud_cdc_available())
-		{
-			uint8_t buf[64];
-			uint32_t count = tud_cdc_read(buf, sizeof(buf));
-			tud_cdc_write(buf, count); // Echo back
-			tud_cdc_write_flush();
-		}
+
+	    static uint16_t buf[64];
+	    static uint8_t result_buf[64];
+
+	    for (int i = 0; i < 64; ++i) {
+	        buf[i] = i * 3 + (HAL_GetTick() & 0xFF);
+	    }
+
+	    for (int i = 0; i < 64; ++i) {
+	        result_buf[i] = buf[i] >> 4;
+	    }
+
+
+	  tud_vendor_write(result_buf, 64);
+	  tud_vendor_flush();  // Optional flush if needed
   }
   /* USER CODE END 3 */
 }
