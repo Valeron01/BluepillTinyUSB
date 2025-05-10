@@ -45,6 +45,11 @@ tusb_desc_device_t const desc_device = {
     .bNumConfigurations = 0x01
 };
 
+
+uint8_t const * tud_descriptor_device_cb(void) {
+    return (uint8_t const *) &desc_device;
+}
+
 uint8_t const * tud_descriptor_get_cb(uint8_t type, uint8_t index) {
     // Handle the WCID descriptor request (GET_DESCRIPTOR 0xEE)
     if (type == TUSB_DESC_DEVICE) {
